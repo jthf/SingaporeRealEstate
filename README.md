@@ -27,7 +27,7 @@ From the geographical map, we observe that:
 # Hypothesis 3
 ## The psf of a property is affected by its lease type.
 
-![](images/Chart_4_Tenure_vs_PSF_(by_Property_Type).jpg)
+![](/images/Chart_4_Tenure_vs_PSF_(by_Property_Type).jpg)
 
 The results were segmented based on the property types to tease apart the impact of property types on psf, isolating the effects of tenure type on psf. 
 
