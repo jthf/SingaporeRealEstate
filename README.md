@@ -1,4 +1,4 @@
-# Real Estates of Singapore
+# Real Estates of Singapore [](https://jthf.github.io/githubTest/)
 Data exploration and hypothesis testing to better inform buyers and real estate agents on the real estate market trends.
 
 # Hypothesis 1
