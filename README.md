@@ -60,7 +60,7 @@ From the results, it is observed that each property type is consistent with the 
 # Hypothesis 6
 ## The relationship between asking price and area is different amongst the different property types. 
 
-![](/images/Chart_8_Graph_of_Asking_Price_against_Area_(Private).jpg)
+![](images/Chart_8_Graph_of_Asking_Price_against_Area_(Private).jpg)
 
 * When comparing the different private properties, apartments and condominiums (private non-landed) has a strong upward slopping relationship between their asking price and area
 * In that sense, bigger condos and apartments tend to yield higher prices
