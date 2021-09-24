@@ -27,7 +27,7 @@ From the geographical map, we observe that:
 # Hypothesis 3
 ## The psf of a property is affected by its lease type.
 
-![](/images/Chart_4_Tenure_vs_PSF_(by_Property_Type).jpg)
+![](images/Chart_4_Tenure_vs_PSF_(by_Property_Type).jpg)
 
 The results were segmented based on the property types to tease apart the impact of property types on psf, isolating the effects of tenure type on psf. 
 
@@ -39,9 +39,9 @@ From the results, it is observed that:
 # Hypothesis 4
 ## The psf of a property is affected by its extent of furnishing, whereby a furnished property is more expensive than a non-furnished one.
 
-![](/images/Chart_5_Furnishing_vs_PSF_(non-HDB).jpg)
+![](images/Chart_5_Furnishing_vs_PSF_(non-HDB).jpg)
 
-![](/images/Chart_6_Furnishing_vs_PSF_(HDB).jpg)
+![](images/Chart_6_Furnishing_vs_PSF_(HDB).jpg)
 
 The analysis segments the data based on their property types to isolate the impact of extent of furnishing on psf. Two separate analyses were then conducted to look at the impact for non-HDB properties and HDB properties since these groups have different psf ranges. 
 
