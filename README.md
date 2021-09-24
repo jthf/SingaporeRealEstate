@@ -19,7 +19,7 @@ From the geographical map, we observe that:
 * District 7, 8 and 9 tend to have high average psf while district 25 appear to have the lowest average psf
 * It is not surprising to see that most of the houses in district 9 are bigger since earlier it was uncovered that there is a high concentration of condominiums up for sale in district 9; this alludes to suppliers of condominiums building houses that are larger than average to meet the needs of wealthier buyers
 
-![](/images/Chart 3 PSF vs District.jpg)
+![](/images/Chart_3_PSF_vs_District.jpg)
 
 * The boxplot shows the distribution of psf depending on the property type. It appears that apartments and condominium are generally more expensive. This explains why houses in district 9, which are mainly condominums, are expensive
 * Even though district 19 has the highest number of apartments, it is not as expensive compared to district 1, 2 & 9
@@ -27,7 +27,7 @@ From the geographical map, we observe that:
 # Hypothesis 3
 ## The psf of a property is affected by its lease type.
 
-![](/images/Chart 4 Tenure vs PSF (by Property Type).jpg)
+![](/images/Chart_4_Tenure_vs_PSF_(by_Property_Type).jpg)
 
 The results were segmented based on the property types to tease apart the impact of property types on psf, isolating the effects of tenure type on psf. 
 
