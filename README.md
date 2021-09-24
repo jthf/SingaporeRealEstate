@@ -4,7 +4,7 @@ Data exploration and hypothesis testing to better inform buyers and real estate 
 # Hypothesis 1
 ## Certain property types can be found more in certain district. 
 
-![](/images/Chart 1 Heatmap of District vs Property Type.jpg)
+![]('/images/Chart 1 Heatmap of District vs Property Type.jpg')
 
 From the heatmap, insights can be derived on the type of properties for sale within each district and compare property types within districts:
 * Little difference in the number of count for terrace, semi-detached and detached houses across the districts
