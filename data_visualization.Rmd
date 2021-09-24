@@ -1,0 +1,220 @@
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(ggmap)
+```
+
+
+```{r}
+data <- read.csv("srxx.csv")
+data$decade <- floor(data$Built.Year/10)*10
+data$decade <- as.factor(data$decade)
+data$DistrictValue <- substr(data$District,1,3)
+attach(data)
+```
+As a first step, it is important to understand the basic characteristics of the data. In order to do so, some basic bar plots of some important factors were created. They include the location of the house, the price of the house and the year that which the house is built.
+
+#Location
+A bar chart was first plotted that looked at the number of house by district. From the graph, it was noticed that Hougang/Sengkang/Punggol and Orchard/River Valley had the most number of houses for sale. On the other hand, Boon Lay and Macpherson had the least number of houses for sale.
+
+```{r}
+# bar plot showing number count by District
+ggplot(data[!is.na(data["District"]),]) + geom_bar(aes(x=DistrictValue)) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+
+#Price
+Next, it would be good to know what the distribution of the price when selling a house. When plotting a histogram of the Asking price, a skewed distribution was formed. A large proportion of the house cost a relatively low price and a few have exorbitant prices. Hence, it was postulated that this follows a log distribution.
+```{r}
+#histogram of Asking Price
+ggplot(data) + geom_histogram(aes(x=Asking), binwidth = 1000000)
+```
+
+Indeed, this was true after a histogram was plotted using the log of the asking price instead of the actual asking price.
+```{r}
+#histogram of Log(Asking Price)
+ggplot(data) + geom_histogram(aes(x=log(Asking)))
+```
+
+#Age
+Lastly, having an understanding of the distribution of the age of the buildings that the houses are in. A bar chart was plotted indicating the number of houses being built in each year and decade.
+
+```{r}
+ggplot(data[!is.na(data["Built.Year"]),]) + geom_bar(aes(x=Built.Year))
+ggplot(data[!is.na(data["decade"]),]) + geom_bar(aes(x=decade))
+```
+
+It was noticed that a large proportion of houses that were sold were built in the current decade. Yet, the supply of newer houses are more than the supply of older houses.
+
+Having a basic understanding of the data, we can proceed to generate hypotheses for the data.
+
+------------------------------------------------------------------
+
+#Hypothesis 1
+Hypothesis: Certain property types can be found more in certain district. 
+```{r}
+prop_dist <- table(data$Property.Type, data$DistrictValue) #to get the count of each property by district
+prop_dist <- as.data.frame(prop_dist)
+names(prop_dist) <- c("PropertyType", "District", "Freq")
+p_d<- prop_dist[which(prop_dist$Freq>0),] # remove if Frequency is 0
+ggplot(data = p_d, aes(y = p_d$PropertyType, x = p_d$District)) + 
+  geom_tile(aes(fill = p_d$Freq)) + 
+  labs(title = "Heatmap of District vs Property Type", x = "District",y = "Property Type", fill = "Freq") + theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+```
+    
+From the heatmap, we can analyze the type of properties that are up for sale within each district and compare whether certain property types tend to be built within a particular district. While there seems to be little difference in the number of count for terrace, semi-detached and detached houses across the districts, we can see that the number of condominiums up for sale is the highest in district 9 and that for apartments is in district 19. 
+
+```{r}
+price.by.district <- aggregate(data$PSF, list(data$DistrictValue), mean)
+colnames(price.by.district) <- c("District", "Average.PSF")
+price.by.district <- merge(price.by.district, data[,c("DistrictValue","Lat","Long")], by.x = "District", by.y = "DistrictValue", all.x = TRUE)
+qmap("Singapore", base_layer=ggplot(aes(x=Long, y = Lat), data= price.by.district), zoom=11, scale=2) + geom_point(aes(color = District, size = Average.PSF)) + ggtitle("PSF by District (Map View)")
+
+## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=Singapore&zoom=11&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false (API required)
+
+## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Singapore&sensor=false (API required)
+```
+
+Also, from the geographical map, we observe that district 7, 8 and 9 tend to have high average psf while district 25 appear to have the lowest average psf. It is not surprising to see that most of the houses in district 9 are bigger since earlier we uncovered that there is a high concentration of condominiums up for sale in district 9; this alludes to suppliers of condominiums building houses that are larger than average to meet the needs of wealthier buyers. 
+
+
+#Hypothesis 2
+Hypothesis: Cost price per square foot (psf) will be affected by the district and property type.
+```{r}
+ggplot(data[!is.na(data["District"]),]) + geom_boxplot(aes(x=DistrictValue, y=PSF)) + ylim(0,4000) + coord_flip() +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue")) + labs(x="District")
+
+
+ggplot(data[!is.na(data["Property.Type"]),]) + geom_boxplot(aes(x=Property.Type, y=PSF))+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ylim(0,4000) + coord_flip() +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+
+
+clean <-data[!is.na(data["DistrictValue"]),]
+dist_psf<-ggplot(clean) + geom_boxplot(aes(x=clean$DistrictValue, y=clean$PSF)) + ylim(0,4000) + coord_flip() + labs(title = "PSF vs District", y = "PSF",x = "District") +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+
+dist_psf2 <- dist_psf + facet_grid(.~clean$Property.Type)
+dist_psf2
+
+```
+
+In the first boxplot, we can see that houses in district 1, 2 and, 9 are the most expensive as they have the highest average cost psf compared to the other districts. The second boxplot show the distribution of psf depending on the property type and we see that apartments and condominium are generally more expensive which explains why district 9 is expensive as it has largely condominiums. 
+
+Even though district 9 has the highest number of counts of apartments, it is not as expensive compared to district 1, 2 & 9. Therefore, we then further breakdown and analyze the cost of each property type within each district. (Housing & Development Board (HDB) flats data are omitted because it has no information on district.) It was observed that the cost of psf for apartments in district 19 are generally lower than $2000 psf compared to district 1 & 2 where are the the apartments cost more than $2000 psf. Also even though district 2 may be the most expensive district on average, one should not assume that every property type is the most expensive there. For example, terrace houses are more expensive in district 4, 7 & 10, whereas condominiums are more expensive in district 9.
+
+#Hypothesis 3
+hypothesis: The psf of a property is affected by its lease type.
+
+```{r}
+ggplot(data[!is.na(data["Tenure"]),], aes(y=PSF,x=Tenure, color=Property.Type)) + 
+  geom_point(position = position_jitter(w=0.1,h=0.1))+
+  coord_flip() +
+  facet_wrap(~Property.Type) +
+  ggtitle("Tenure VS PSF (by Property Type)") +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+
+```
+
+In the analysis, the results were segmented based on the property types to tease apart the impact of property types on psf, isolating the effects of tenure type on psf. From the results, it is observed that only non-HDB properties have tenure types that are different from the 99-year lease, with the exception of an anomaly under HDB 4 Rooms. We can also tell that Apartment and Condominium have greater variations in their psf. However, based on non-HDB properties, there is no clear correlation between tenure types and psf. 
+
+
+#Hypothesis 4
+Hypothesis: The psf of a property is affected by its extent of furnishing, whereby a furnished property is more expensive than a non-furnished one.
+```{r}
+ggplot(data[!is.na(data["Furnish"])&!grepl("HDB", data$Property.Type),], aes(y=PSF,x=Furnish, color=Property.Type)) + 
+  geom_boxplot()+
+  coord_flip() +
+  ylim(0,4250) +
+  facet_wrap(~Property.Type, ncol=2) +
+  ggtitle("Furnishing VS PSF (Non-HDB)") +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+
+
+ggplot(data[!is.na(data["Furnish"])&grepl("HDB", data$Property.Type),], aes(y=PSF,x=Furnish, color=Property.Type)) + 
+  geom_boxplot()+
+  coord_flip() +
+  ylim(0,1000) +
+  facet_wrap(~Property.Type, ncol=2) +
+  ggtitle("Furnishing VS PSF (HDB)") +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+
+```
+
+The analysis segments the data based on their property types to isolate the impact of extent of furnishing on psf. Two separate analyses were then conducted to look at the impact for non-HDB properties and HDB properties since these groups have different psf ranges. From the results, it is observed that each property type is consistent with the hypothesis. A property that is unfurnished generally has a lowered mean psf than a property that is partially or fully furnished across all property types.
+
+#Hypothesis 5
+Hypothesis: HDBs sold will generally be older as compared to Private Property. 
+```{r}
+require(plyr)
+require(dplyr)
+# Going through the property types, identify which property is a HDB and which is not.
+prop.type <- names(table(data$Property.Type))
+prop.type.hdb <- prop.type[grepl("HDB", prop.type)]
+data$is.HDB <- data$Property.Type %in% prop.type.hdb
+data$is.HDB <- ifelse(data$is.HDB, "Is a HDB", "Is Not a HDB")
+
+a <- ggplot(data[!is.na(data$Built.Year),]) + geom_bar(aes(x = Built.Year, fill = is.HDB)) + 
+  labs(title="Number of Properties Listed by Year", subtitle="Breakdown by Property Type", y="Number of Properties Listed", x="Built Year", fill="Property Type") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Grouping the properties by their built year, identify the proportion of HDB and non HDB
+d2 <- data %>% 
+  group_by(Built.Year, is.HDB) %>%
+  summarise(count=n()) %>%
+  mutate(perc=count/sum(count))
+d2$actual = ifelse(d2$is.HDB=="Is a HDB", d2$perc, 1-d2$perc)
+
+a + geom_line(data=d2, aes(x=Built.Year, y=actual*200)) + 
+  scale_y_continuous(sec.axis = sec_axis(~./200, name = "Percentage of HDB Properties Listed")) + 
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+```
+
+We can posit that new property that are sold are often made from an investment perspective. Due to the certain government measures in place, HDBs are not ideal assets to be traded for investment gains. As such, it is likely that most investment properties are private properties. The graph plotted actually backs the hypothesis. For homes built in the last 5 years, only a very small proportion represents HDBs. 
+
+
+#Hypothesis 6
+Hypothesis: The relationship between asking price and area is different amongst the different property types. 
+```{r}
+#Private Property & HDB have different Area classification system. Split the dataset into 2
+clean = split(data, data$Area < 30)
+ggplot(clean[[1]], aes(y=log10(Asking), x=log10(Area))) + geom_point() + geom_smooth(method = "lm") +
+  scale_x_continuous(labels = function(x) round(10^x,3)) + scale_y_continuous(labels = function(x) round(10^x,3))+
+  facet_wrap(~Property.Type) + 
+  labs(title="Graph of Asking Price against Area (Private)", subtitle="Log Transformed", y="Logarithm of Asking Price", x="Logarithm of Area") + 
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+```
+
+When comparing the different private properties, apartments and condominiums (private non-landed) has a strong upward slopping relationship between their asking price and area. In that sense, bigger condos and apartments tend to yield higher prices. However, this relationship starts to dwindle when applied to landed properties such as terraces, semi-detach and bungalows. 
+
+```{r}
+#Private Property & HDB have different Area classification system. Split the dataset into 2
+ggplot(clean[[2]], aes(y=log10(Asking), x=log10(Area))) + geom_point() + geom_smooth(method = "lm") +
+  scale_x_continuous(labels = function(x) round(10^x,3)) + scale_y_continuous(labels = function(x) round(10^x,3))+
+  facet_wrap(~Property.Type) + 
+  labs(title="Graph of Asking Price against Area (HDBs)", subtitle="Log Transformed", y="Logarithm of Asking Price", x="Logarithm of Area") + 
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+
+```
+
+The analysis on HDBs yield us some interesting results. Firstly, from the graph, it appears that many HDBs are of the same size. This could be due to the standardized blueprints that HDB employs. However, for HDBs of different sizes, there was no clear relationship between area and price. Perhaps the main factor that ultimately affects the price of HDBs is the location, and not the area per se.
+
+#Hypothesis 7
+
+Hypothesis: As area of the property increases, the asking price increases.
+```{r}
+# psf vs rooms - scatter plot
+ggplot(data[!is.na(data["Area"]),]) + 
+  geom_point(aes(x=Area, y=log(Asking), colour=Property.Type), position = position_jitter(w=0.25,h=0.25)) + 
+  xlim(1,10000) + #ylim(1,7.5) + 
+  geom_smooth(aes(x=Area, y=log(Asking), colour=Property.Type), method=lm) +
+  ggtitle("Log(Asking) VS Area (by Property Type)") +
+  theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
+```
+
+The area and logarithm of the asking price were plotted to uncover their relationship. From the graph, we observed that the correlation is highest among the property type – Apartment. However, in contrast with the HDB room types, the trend is not as strong. Hence, we cannot conclude that the hypothesis is applicable to all housing types.
+
+
+
