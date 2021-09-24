@@ -77,7 +77,7 @@ The analysis on HDBs yield us some interesting results.
 # Hypothesis 7
 ## As area of the property increases, the asking price increases.
 
-![](/images/Chart_10_Log(Asking)_vs_Area_(by_Property_Type).jpg)
+![](images/Chart_10_Log(Asking)_vs_Area_(by_Property_Type).jpg)
 
 The area and logarithm of the asking price were plotted to uncover their relationship. 
 
