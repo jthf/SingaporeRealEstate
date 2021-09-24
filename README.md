@@ -13,7 +13,7 @@ From the heatmap, insights can be derived on the type of properties for sale wit
 # Hypothesis 2 
 ## Cost psf will be affected by the district and property type.
 
-![](/images/Chart 2 PSF vs District map.jpg)
+![](/images/Chart_2_PSF_vs_District_Map.jpg)
 
 From the geographical map, we observe that:
 * District 7, 8 and 9 tend to have high average psf while district 25 appear to have the lowest average psf
