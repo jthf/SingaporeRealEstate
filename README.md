@@ -66,7 +66,7 @@ From the results, it is observed that each property type is consistent with the 
 * In that sense, bigger condos and apartments tend to yield higher prices
 * However, this relationship starts to dwindle when applied to landed properties such as terraces, semi-detach and bungalows
 
-![](/images/Chart_9_Graph_of_Asking_Price_against_Area_(HDBs).jpg)
+![](images/Chart_9_Graph_of_Asking_Price_against_Area_(HDBs).jpg)
 
 The analysis on HDBs yield us some interesting results. 
 * Firstly, from the graph, it appears that many HDBs are of the same size 
