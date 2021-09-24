@@ -1,4 +1,4 @@
-# Real Estates of Singapore [](https://www.markdownguide.org/cheat-sheet/)
+# [Real Estates of Singapore](https://www.markdownguide.org/cheat-sheet/)
 Data exploration and hypothesis testing to better inform buyers and real estate agents on the real estate market trends.
 
 # Hypothesis 1
