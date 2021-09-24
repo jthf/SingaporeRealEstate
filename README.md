@@ -2,7 +2,7 @@
 Data exploration and hypothesis testing to better inform buyers and real estate agents on the real estate market trends.
 
 # Hypothesis 1
-## Certain property types can be found more in certain district. 
+## The supply of some property types is higher in some districts. 
 
 ![](/images/Chart_1_Heatmap_of_District_vs_Property_Type.jpg)
 
