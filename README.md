@@ -36,3 +36,53 @@ From the results, it is observed that:
 * Apartment and Condominium have large variances in their psf
 * Based on non-HDB properties, there is no clear correlation between tenure types and psf
 
+# Hypothesis 4
+## The psf of a property is affected by its extent of furnishing, whereby a furnished property is more expensive than a non-furnished one.
+
+![](/images/Chart_5_Furnishing_vs_PSF_(non-HDB).jpg)
+
+![](/images/Chart_6_Furnishing_vs_PSF_(HDB).jpg)
+
+The analysis segments the data based on their property types to isolate the impact of extent of furnishing on psf. Two separate analyses were then conducted to look at the impact for non-HDB properties and HDB properties since these groups have different psf ranges. 
+
+From the results, it is observed that each property type is consistent with the hypothesis. A property that is unfurnished generally has a lowered mean psf than a property that is partially or fully furnished across all property types
+
+# Hypothesis 5
+## HDBs sold will generally be older as compared to Private Property. 
+
+![](/images/Chart_7_Number_of_Properties_Listed_by_Year.jpg)
+
+* We can posit that new property that are sold are often made from an investment perspective. 
+* Due to the certain government measures in place, HDBs are not ideal assets to be traded for investment gains. 
+* As such, it is likely that most investment properties are private properties. 
+* The graph plotted actually backs the hypothesis: for homes built in the last 5 years, only a very small proportion represents HDBs. 
+
+# Hypothesis 6
+## The relationship between asking price and area is different amongst the different property types. 
+
+![](/images/Chart_8_Graph_of_Asking_Price_against_Area_(Private).jpg)
+
+* When comparing the different private properties, apartments and condominiums (private non-landed) has a strong upward slopping relationship between their asking price and area
+* In that sense, bigger condos and apartments tend to yield higher prices
+* However, this relationship starts to dwindle when applied to landed properties such as terraces, semi-detach and bungalows
+
+![](/images/Chart_9_Graph_of_Asking_Price_against_Area_(HDBs).jpg)
+
+The analysis on HDBs yield us some interesting results. 
+* Firstly, from the graph, it appears that many HDBs are of the same size 
+* This could be due to the standardized blueprints that HDB employs
+* However, for HDBs of different sizes, there was no clear relationship between area and price
+* Perhaps the main factor that ultimately affects the price of HDBs is the location, and not the area per se
+
+# Hypothesis 7
+## As area of the property increases, the asking price increases.
+
+![](/images/Chart_10_Log(Asking)_vs_Area_(by_Property_Type).jpg)
+
+The area and logarithm of the asking price were plotted to uncover their relationship. 
+
+From the graph, we observed that:
+* The correlation is highest among the property type – Apartment
+* However, in contrast with the HDB room types, the trend is not as strong
+* Hence, we cannot conclude that the hypothesis is applicable to all housing types
+
