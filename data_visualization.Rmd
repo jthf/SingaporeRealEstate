@@ -1,57 +1,13 @@
+---
+title: "data_visualization"
 output: html_document
 ---
+
 
 ```{r}
 library(ggplot2)
 library(ggmap)
 ```
-
-
-```{r}
-data <- read.csv("srxx.csv")
-data$decade <- floor(data$Built.Year/10)*10
-data$decade <- as.factor(data$decade)
-data$DistrictValue <- substr(data$District,1,3)
-attach(data)
-```
-As a first step, it is important to understand the basic characteristics of the data. In order to do so, some basic bar plots of some important factors were created. They include the location of the house, the price of the house and the year that which the house is built.
-
-#Location
-A bar chart was first plotted that looked at the number of house by district. From the graph, it was noticed that Hougang/Sengkang/Punggol and Orchard/River Valley had the most number of houses for sale. On the other hand, Boon Lay and Macpherson had the least number of houses for sale.
-
-```{r}
-# bar plot showing number count by District
-ggplot(data[!is.na(data["District"]),]) + geom_bar(aes(x=DistrictValue)) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-
-```
-
-#Price
-Next, it would be good to know what the distribution of the price when selling a house. When plotting a histogram of the Asking price, a skewed distribution was formed. A large proportion of the house cost a relatively low price and a few have exorbitant prices. Hence, it was postulated that this follows a log distribution.
-```{r}
-#histogram of Asking Price
-ggplot(data) + geom_histogram(aes(x=Asking), binwidth = 1000000)
-```
-
-Indeed, this was true after a histogram was plotted using the log of the asking price instead of the actual asking price.
-```{r}
-#histogram of Log(Asking Price)
-ggplot(data) + geom_histogram(aes(x=log(Asking)))
-```
-
-#Age
-Lastly, having an understanding of the distribution of the age of the buildings that the houses are in. A bar chart was plotted indicating the number of houses being built in each year and decade.
-
-```{r}
-ggplot(data[!is.na(data["Built.Year"]),]) + geom_bar(aes(x=Built.Year))
-ggplot(data[!is.na(data["decade"]),]) + geom_bar(aes(x=decade))
-```
-
-It was noticed that a large proportion of houses that were sold were built in the current decade. Yet, the supply of newer houses are more than the supply of older houses.
-
-Having a basic understanding of the data, I can proceed to generate hypotheses for the data.
-
-------------------------------------------------------------------
 
 #Hypothesis 1
 Hypothesis: Certain property types can be found more in certain district. 
@@ -215,6 +171,3 @@ ggplot(data[!is.na(data["Area"]),]) +
 ```
 
 The area and logarithm of the asking price were plotted to uncover their relationship. From the graph, I observed that the correlation is highest among the property type – Apartment. However, in contrast with the HDB room types, the trend is not as strong. Hence, I cannot conclude that the hypothesis is applicable to all housing types.
-
-
-
