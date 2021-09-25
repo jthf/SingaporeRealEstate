@@ -49,7 +49,7 @@ ggplot(data[!is.na(data["decade"]),]) + geom_bar(aes(x=decade))
 
 It was noticed that a large proportion of houses that were sold were built in the current decade. Yet, the supply of newer houses are more than the supply of older houses.
 
-Having a basic understanding of the data, we can proceed to generate hypotheses for the data.
+Having a basic understanding of the data, I can proceed to generate hypotheses for the data.
 
 ------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ ggplot(data = p_d, aes(y = p_d$PropertyType, x = p_d$District)) +
   labs(title = "Heatmap of District vs Property Type", x = "District",y = "Property Type", fill = "Freq") + theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
 ```
     
-From the heatmap, we can analyze the type of properties that are up for sale within each district and compare whether certain property types tend to be built within a particular district. While there seems to be little difference in the number of count for terrace, semi-detached and detached houses across the districts, we can see that the number of condominiums up for sale is the highest in district 9 and that for apartments is in district 19. 
+From the heatmap, I can compare the type of properties that are up for sale within each district and compare whether certain property types tend to be built within a particular district. While there seems to be little difference in the number of count for terrace, semi-detached and detached houses across the districts, I can see that the number of condominiums up for sale is the highest in district 9 and that for apartments is in district 19. 
 
 ```{r}
 price.by.district <- aggregate(data$PSF, list(data$DistrictValue), mean)
@@ -78,7 +78,7 @@ qmap("Singapore", base_layer=ggplot(aes(x=Long, y = Lat), data= price.by.distric
 ## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Singapore&sensor=false (API required)
 ```
 
-Also, from the geographical map, we observe that district 7, 8 and 9 tend to have high average psf while district 25 appear to have the lowest average psf. It is not surprising to see that most of the houses in district 9 are bigger since earlier we uncovered that there is a high concentration of condominiums up for sale in district 9; this alludes to suppliers of condominiums building houses that are larger than average to meet the needs of wealthier buyers. 
+Also, from the geographical map, I observe that district 7, 8 and 9 tend to have high average psf while district 25 appear to have the lowest average psf. It is not surprising to see that most of the houses in district 9 are bigger since earlier I uncovered that there is a high concentration of condominiums up for sale in district 9; this alludes to suppliers of condominiums building houses that are larger than average to meet the needs of wealthier buyers. 
 
 
 #Hypothesis 2
@@ -101,9 +101,9 @@ dist_psf2
 
 ```
 
-In the first boxplot, we can see that houses in district 1, 2 and, 9 are the most expensive as they have the highest average cost psf compared to the other districts. The second boxplot show the distribution of psf depending on the property type and we see that apartments and condominium are generally more expensive which explains why district 9 is expensive as it has largely condominiums. 
+In the first boxplot, I can see that houses in district 1, 2 and, 9 are the most expensive as they have the highest average cost psf compared to the other districts. The second boxplot show the distribution of psf depending on the property type and I see that apartments and condominium are generally more expensive which explains why district 9 is expensive as it has largely condominiums. 
 
-Even though district 9 has the highest number of counts of apartments, it is not as expensive compared to district 1, 2 & 9. Therefore, we then further breakdown and analyze the cost of each property type within each district. (Housing & Development Board (HDB) flats data are omitted because it has no information on district.) It was observed that the cost of psf for apartments in district 19 are generally lower than $2000 psf compared to district 1 & 2 where are the the apartments cost more than $2000 psf. Also even though district 2 may be the most expensive district on average, one should not assume that every property type is the most expensive there. For example, terrace houses are more expensive in district 4, 7 & 10, whereas condominiums are more expensive in district 9.
+Even though district 9 has the highest number of counts of apartments, it is not as expensive compared to district 1, 2 & 9. Therefore, I then further breakdown and analyze the cost of each property type within each district. (Housing & Development Board (HDB) flats data are omitted because it has no information on district.) It was observed that the cost of psf for apartments in district 19 are generally lower than $2000 psf compared to district 1 & 2 where are the the apartments cost more than $2000 psf. Also even though district 2 may be the most expensive district on average, one should not assume that every property type is the most expensive there. For example, terrace houses are more expensive in district 4, 7 & 10, whereas condominiums are more expensive in district 9.
 
 #Hypothesis 3
 hypothesis: The psf of a property is affected by its lease type.
@@ -118,7 +118,7 @@ ggplot(data[!is.na(data["Tenure"]),], aes(y=PSF,x=Tenure, color=Property.Type)) 
 
 ```
 
-In the analysis, the results were segmented based on the property types to tease apart the impact of property types on psf, isolating the effects of tenure type on psf. From the results, it is observed that only non-HDB properties have tenure types that are different from the 99-year lease, with the exception of an anomaly under HDB 4 Rooms. We can also tell that Apartment and Condominium have greater variations in their psf. However, based on non-HDB properties, there is no clear correlation between tenure types and psf. 
+In the analysis, the results were segmented based on the property types to tease apart the impact of property types on psf, isolating the effects of tenure type on psf. From the results, it is observed that only non-HDB properties have tenure types that are different from the 99-year lease, with the exception of an anomaly under HDB 4 Rooms. I can also tell that Apartment and Condominium have greater variations in their psf. However, based on non-HDB properties, there is no clear correlation between tenure types and psf. 
 
 
 #Hypothesis 4
@@ -172,7 +172,7 @@ a + geom_line(data=d2, aes(x=Built.Year, y=actual*200)) +
   theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
 ```
 
-We can posit that new property that are sold are often made from an investment perspective. Due to the certain government measures in place, HDBs are not ideal assets to be traded for investment gains. As such, it is likely that most investment properties are private properties. The graph plotted actually backs the hypothesis. For homes built in the last 5 years, only a very small proportion represents HDBs. 
+I can posit that new property that are sold are often made from an investment perspective. Due to the certain government measures in place, HDBs are not ideal assets to be traded for investment gains. As such, it is likely that most investment properties are private properties. The graph plotted actually backs the hypothesis. For homes built in the last 5 years, only a very small proportion represents HDBs. 
 
 
 #Hypothesis 6
@@ -214,7 +214,7 @@ ggplot(data[!is.na(data["Area"]),]) +
   theme(axis.text.x=element_text(angle=50,size=10,vjust = 0.5), plot.title=element_text(size=17,face="bold",color="Blue"))
 ```
 
-The area and logarithm of the asking price were plotted to uncover their relationship. From the graph, we observed that the correlation is highest among the property type – Apartment. However, in contrast with the HDB room types, the trend is not as strong. Hence, we cannot conclude that the hypothesis is applicable to all housing types.
+The area and logarithm of the asking price were plotted to uncover their relationship. From the graph, I observed that the correlation is highest among the property type – Apartment. However, in contrast with the HDB room types, the trend is not as strong. Hence, I cannot conclude that the hypothesis is applicable to all housing types.
 
 
 
