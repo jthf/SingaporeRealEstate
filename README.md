@@ -1,6 +1,49 @@
 # [Real Estates of Singapore](https://www.visitsingapore.com/en/)
 Data exploration and hypothesis testing to better inform buyers and real estate agents on the real estate market trends.
 
+# Web Scraping
+Tweaked the web scraper github repo (above) to scrape 2000 job postings from srx.com.sg. With each job, I got the following:
+
+* Address
+* Lat
+* Long
+* Area
+* Asking
+* Bathrooms
+* Bedrooms
+* Built Year
+* Developer
+* District
+* facilities
+* Floor
+* Furnish
+* HDB Town
+* Model
+* No. of Units
+* Property Name
+* Property Type
+* PSF
+* Tenure
+* X-Valuation
+
+# Data Cleaning
+
+After scraping the data, I needed to clean it up so that it was usable for our model. I made the following changes and created the following variables:
+
+* Parsed numeric data out of asking price of houses
+* Parsed numeric data out of price per square foot (psf) 
+* Parsed numeric data out of area
+* Added a new column for district value
+
+# EDA
+I looked at the distributions of the data and the value counts for the various categorical variables. Below are a few highlights from the pivot tables.
+
+![](images/EDA_Chart_1.jpg)
+
+*Distribution of by
+![](images/EDA_Chart_2.jpg)
+
+
 # Hypothesis 1
 ## The supply of some property types is higher in some districts. 
 
@@ -15,7 +58,7 @@ From the heatmap, insights can be derived on the type of properties for sale wit
 
 ![](/images/Chart_2_PSF_vs_District_Map.jpg)
 
-From the geographical map, we observe that:
+From the geographical map, I observe that:
 * District 7, 8 and 9 tend to have high average psf while district 25 appear to have the lowest average psf
 * It is not surprising to see that most of the houses in district 9 are bigger since earlier it was uncovered that there is a high concentration of condominiums up for sale in district 9; this alludes to suppliers of condominiums building houses that are larger than average to meet the needs of wealthier buyers
 
@@ -52,7 +95,7 @@ From the results, it is observed that each property type is consistent with the 
 
 ![](/images/Chart_7_Number_of_Properties_Listed_by_Year.jpg)
 
-* We can posit that new property that are sold are often made from an investment perspective. 
+* I posit that new property that are sold are often made from an investment perspective. 
 * Due to the certain government measures in place, HDBs are not ideal assets to be traded for investment gains. 
 * As such, it is likely that most investment properties are private properties. 
 * The graph plotted actually backs the hypothesis: for homes built in the last 5 years, only a very small proportion represents HDBs. 
@@ -81,8 +124,8 @@ The analysis on HDBs yield us some interesting results.
 
 The area and logarithm of the asking price were plotted to uncover their relationship. 
 
-From the graph, we observed that:
+From the graph, I observed that:
 * The correlation is highest among the property type – Apartment
 * However, in contrast with the HDB room types, the trend is not as strong
-* Hence, we cannot conclude that the hypothesis is applicable to all housing types
+* Hence, I cannot conclude that the hypothesis is applicable to all housing types
 
