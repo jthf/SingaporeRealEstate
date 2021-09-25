@@ -40,7 +40,6 @@ I looked at the distributions of the data and the value counts for the various c
 
 ![](images/EDA_Chart_1.jpg)
 
-*Distribution of by
 ![](images/EDA_Chart_2.jpg)
 
 
